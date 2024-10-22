@@ -2,4 +2,4 @@
 rootfounders.toml
 node_modules/
 dist/
-website/static/js/
+src/website/static/js/
