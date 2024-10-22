@@ -1,0 +1,3 @@
+[submodule "contracts"]
+	path = src/contracts
+	url = https://github.com/rootfounders/contracts
