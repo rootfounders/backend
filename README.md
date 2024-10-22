@@ -9,8 +9,11 @@ RootFounders is a decentralized and permission-less protocol that makes it easy 
 
 ### Features
 **Tip**: send a tip to a project you like. Smart contract supports both Ether and ERC-20, the UI (frontend) only Ether for the time being. This functionality is implemented using OpenZeppelin's PaymentSplitter (i.e. each project has its own address for tipping).
+
 **Comment**: comment on projects. Comment text is sent in calldata, so the user doesn't pay for it, but it's recorded on chain. It's then picked up by our worker and cached in the database. This keeps comments decentralized and not owned by us.
+
 **Create project**: describe your idea and present it on RootFounders. Projects are saved on chain with their descriptions being pinned to IPFS. This makes it easy for anyone to own their project data and they can pin it themselves.
+
 **Teams**: currently only supported by the smart contract, allows users to apply to join a team, be allowed to join and leave a team. These are all on-chain events.
 
 From the technical perspective, we designed RootFounders so that anyone could build an alternative UI for it (decentralized frontends).
