@@ -1,4 +1,4 @@
-module github.com/rootfounders/backend/config
+module github.com/rootfounders/rootfounders/config
 
 go 1.22.3
 

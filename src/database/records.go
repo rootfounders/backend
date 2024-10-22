@@ -7,7 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/jackc/pgx/v5"
 	"github.com/microcosm-cc/bluemonday"
-	rootFounders "github.com/rootfounders/backend/contracts"
+	rootFounders "github.com/rootfounders/rootfounders/abis"
 )
 
 var policy = bluemonday.StrictPolicy()

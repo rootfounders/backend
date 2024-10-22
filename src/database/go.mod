@@ -1,4 +1,4 @@
-module github.com/rootfounders/backend/database
+module github.com/rootfounders/rootfounders/database
 
 go 1.22.3
 

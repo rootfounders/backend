@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	ipfs "github.com/ipfs/go-ipfs-api"
-	"github.com/rootfounders/backend/config"
+	"github.com/rootfounders/rootfounders/config"
 )
 
 var ipfsShell *ipfs.Shell

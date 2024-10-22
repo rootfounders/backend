@@ -3,3 +3,4 @@ rootfounders.toml
 node_modules/
 dist/
 src/website/static/js/
+src/website/tmp/

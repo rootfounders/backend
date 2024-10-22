@@ -1,4 +1,4 @@
-module github.com/rootfounders/backend/website
+module github.com/rootfounders/rootfounders/website
 
 go 1.23
 

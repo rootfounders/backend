@@ -9,9 +9,9 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/jackc/pgx/v5"
-	"github.com/rootfounders/backend/config"
-	rootFounders "github.com/rootfounders/backend/contracts"
-	database "github.com/rootfounders/backend/database"
+	rootFounders "github.com/rootfounders/rootfounders/abis"
+	"github.com/rootfounders/rootfounders/config"
+	database "github.com/rootfounders/rootfounders/database"
 )
 
 var conn *database.Connection

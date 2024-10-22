@@ -3,9 +3,9 @@ go 1.23
 toolchain go1.23.2
 
 use (
-	./config
-	./contracts
-	./database
-	./website
-	./worker
+	./src/config
+	./src/abis
+	./src/database
+	./src/website
+	./src/worker
 )
