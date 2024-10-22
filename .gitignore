@@ -4,3 +4,4 @@ node_modules/
 dist/
 src/website/static/js/
 src/website/tmp/
+src/frontend/yarn-error.log

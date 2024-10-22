@@ -4,7 +4,8 @@
   "source": "src/main.ts",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "build": "webpack build"
+    "build": "webpack build",
+    "build-and-copy": "webpack build && rm -f ../website/static/js/* && cp dist/* ../website/static/js"
   },
   "devDependencies": {
     "dotenv-webpack": "^8.1.0",
