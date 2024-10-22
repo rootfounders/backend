@@ -1,0 +1,5 @@
+.env
+rootfounders.toml
+node_modules/
+dist/
+website/static/js/
