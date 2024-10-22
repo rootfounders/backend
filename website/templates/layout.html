@@ -1,0 +1,65 @@
+{{$title := "RootFounders"}}
+{{$description := "Build-in-public founder community designed for team building and validating ideas"}}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{$title}}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/style.css">
+
+        <meta name="description" content="{{$description}}">
+        <meta property="og:title" content="{{$title}}">
+        <meta property="og:description" content="{{$description}}">
+        <!-- <meta property="og:image" content="https://www.mywebsite.com/image.jpg"> -->
+        <!-- <meta property="og:image:alt" content="Image description"> -->
+        <meta property="og:locale" content="en_US">
+        <meta property="og:type" content="website">
+        <meta name="twitter:card" content="summary_large_image">
+        <!-- <meta property="og:url" content="https://www.mywebsite.com/page"> -->
+        <!-- <link rel="canonical" href="https://www.mywebsite.com/page"> -->
+
+        <!-- <link rel="icon" href="/favicon.ico">
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png"> -->
+        <!-- <meta name="theme-color" content="#FF00FF"> -->
+    </head>
+    <body>
+
+        <div class="site-header-wrapper">
+            <div class="site-header">
+                <div class="site-logo">
+                    <a href="/">
+                        RootFounders
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="/projects">Projects</a>
+                        </li>
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    </ul>
+
+                    <div>
+                        <a href="/projects/new">Add project</a>
+                        <button>Connect wallet</button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        {{template "content" . }}
+
+        <div class="site-footer-wrapper">
+            <footer>
+                &copy; RootFounders
+            </footer>
+        </div>
+
+    <script type="module" src="/static/js/bundle.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "rootfounders",
+  "version": "1.0.0",
+  "source": "src/main.ts",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "build": "webpack build"
+  },
+  "devDependencies": {
+    "dotenv-webpack": "^8.1.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.3",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@web3-onboard/core": "^2.22.3",
+    "@web3-onboard/injected-wallets": "^2.11.2",
+    "viem": "^2.21.29"
+  }
+}

@@ -1,0 +1,39 @@
+{{define "content"}}
+<main class="narrow">
+    <h1>Create new project</h1>
+
+    <p>
+        Almost there! Connect your wallet and click "Create" to finish
+    </p>
+    <create-project></create-project>
+
+
+    <create-project-form>
+        <form method="post" action="/projects/new">
+            <label>
+                <span>
+                    Name or short description
+                </span>
+                <small>
+                    If you have a name for your project, great! Just put it below. If not, write a short description.
+                </small>
+                <input type="text" name="shortName" required minlength="3" maxlength="160">
+            </label>
+
+            <label>
+                <span>
+                    Description
+                </span>
+                <small>
+                    Describe your project
+                </small>
+                <textarea name="description" minlength="10"></textarea>
+            </label>
+
+            <div class="buttons">
+                <button class="primary">Create</button>
+            </div>
+        </form>
+    </create-project-form>
+</main>
+{{end}}

@@ -1,0 +1,53 @@
+{{define "content"}}
+<main class="narrow">
+    {{if not .DataAvailable}}
+    <h1>Project details</h1>
+    <p>
+        We are still waiting for on chain confirmation. Please try again a bit later
+    </p>
+    {{else}}
+    <header>
+        <h1>{{.ShortName}}</h1>
+        <strong>by {{.Owner}}</strong>
+    </header>
+
+    <p>
+        {{.Description}}
+    </p>
+
+    <div class="project-actions">
+        <tip-project class="project-tip" project-id="{{.ProjectId}}">
+            <form>
+                <input>
+                <button class="primary">Tip</button>
+            </form>
+            <span class="success" data-success hidden>Tip sent, thank you!</span>
+        </tip-project>
+
+        <h2>Comments</h2>
+        <project-comments comments="{{.Comments}}" project-id="{{.ProjectId}}">
+            <template id="comment">
+                <li>
+                    <strong data-author></strong>
+                    <div data-content>
+
+                    </div>
+                </li>
+            </template>
+            <form id="addComment">
+                <label>
+                    Add comment
+                    <textarea name="content"></textarea>
+                    <button class="primary">Add comment</button>
+                </label>
+                <span class="success" data-success hidden>Your comment was posted</span>
+            </form>
+            <ul id="comments">
+
+            </ul>
+        </project-comments>
+    </div>
+
+    {{end}}
+</main>
+{{end}}
