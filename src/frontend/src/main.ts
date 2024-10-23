@@ -3,6 +3,8 @@ import { CreateProjectForm } from './create_project_form';
 import { TipProject } from './tip_project';
 import { ProjectComments } from './project_comments';
 import { ProjectUpdates } from './project_updates';
+import { ApplyForm } from './apply_form';
+import { ProposalList } from './proposal_list';
 
 (() => {
     console.log('Registrating components');
@@ -11,6 +13,8 @@ import { ProjectUpdates } from './project_updates';
     customElements.define("tip-project", TipProject)
     customElements.define("project-comments", ProjectComments);
     customElements.define("project-updates", ProjectUpdates);
+    customElements.define("apply-form", ApplyForm);
+    customElements.define("proposal-list", ProposalList);
 })();
 
 export {

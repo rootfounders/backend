@@ -12,6 +12,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/jackc/pgx/v5"
 	"github.com/microcosm-cc/bluemonday"
+	"github.com/rootfounders/rootfounders/database"
 )
 
 type ProjectForm struct {
@@ -146,15 +147,24 @@ func InitRoutes(r *chi.Mux) {
 		}
 		updatesJson, _ := json.Marshal(updates)
 
+		team, err := dbConn.GetTeam(context.TODO(), pid)
+		if err != nil && err != pgx.ErrNoRows {
+			log.Println("getting team from the database:", err, pid)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
 		data := struct {
 			ProjectId     string
 			DataAvailable bool
 			ShortName     string
 			Owner         string
 			Description   string
+			TipJar        string
 			TipsTotal     *big.Int
 			Comments      string
 			Updates       string
+			Team          []string
 		}{
 			// TOOD
 			ProjectId:     projectId,
@@ -163,13 +173,183 @@ func InitRoutes(r *chi.Mux) {
 			Owner:         project.Owner,
 			// description should really be JSON
 			Description: string(description),
+			TipJar:      project.TipJar,
 			TipsTotal:   tipsTotal,
 			Comments:    string(commentsJson),
 			Updates:     string(updatesJson),
+			Team:        team,
 		}
 
 		renderTemplate(w, "/project/{projectId}", "project", data)
 	})
+
+	r.Get("/projects/{projectId}/apply", func(w http.ResponseWriter, r *http.Request) {
+		projectId := chi.URLParam(r, "projectId")
+
+		pid, _ := big.NewInt(0).SetString(projectId, 10)
+		project, err := dbConn.GetProject(context.TODO(), pid)
+		if err != nil {
+			if err == pgx.ErrNoRows {
+				http.Redirect(w, r, "/projects", http.StatusSeeOther)
+				return
+			}
+			log.Println("getting project data from the database:", err, pid)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		data := struct {
+			ProjectId string
+			ShortName string
+		}{
+			// TOOD
+			ProjectId: projectId,
+			ShortName: project.ShortName,
+		}
+
+		renderTemplate(w, "/project/{projectId}/apply", "project_apply", data)
+	})
+
+	r.Post("/projects/{projectId}/apply", func(w http.ResponseWriter, r *http.Request) {
+		projectId := chi.URLParam(r, "projectId")
+
+		pid, _ := big.NewInt(0).SetString(projectId, 10)
+		_, err := dbConn.GetProject(context.TODO(), pid)
+		if err != nil {
+			if err == pgx.ErrNoRows {
+				http.Redirect(w, r, "/projects", http.StatusSeeOther)
+				return
+			}
+			log.Println("getting project data from the database:", err, pid)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		payload := struct {
+			Signature string `json:"signature"`
+			Address   string `json:"address"`
+			Value     string `json:"value"`
+		}{}
+
+		decoder := json.NewDecoder(r.Body)
+		if err := decoder.Decode(&payload); err != nil {
+			log.Println("post apply json error:", err)
+			http.Error(w, "Invalid JSON", http.StatusBadRequest)
+			return
+		}
+		defer r.Body.Close()
+
+		verified, err := verifySignature(payload.Address, payload.Signature, payload.Value)
+		if err != nil {
+			log.Println("invalid signatue", err, payload.Address, payload.Signature, payload.Value)
+			http.Error(w, "Invalid signature", http.StatusBadRequest)
+			return
+		}
+		if !verified {
+			http.Error(w, "Cannot verify signature", http.StatusBadRequest)
+			return
+		}
+
+		proposalValue := struct {
+			ProjectId string `json:"projectId"`
+			// teamApplicationProposal
+			Value string `json:"value"`
+		}{}
+
+		if err := json.Unmarshal([]byte(payload.Value), &proposalValue); err != nil {
+			log.Println("invalid proposal JSON", err)
+			http.Error(w, "Invalid proposal", http.StatusBadRequest)
+			return
+		}
+
+		if projectId != proposalValue.ProjectId {
+			http.Error(w, "Invalid project", http.StatusBadRequest)
+			return
+		}
+
+		err = dbConn.CreateProposal(context.TODO(), &database.ProposalRecord{
+			ProjectId: projectId,
+			Address:   payload.Address,
+			Message:   proposalValue.Value,
+		})
+		if err != nil {
+			log.Println("saving proposal to database:", err, pid)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		log.Println("added new proposal", projectId, payload.Address)
+		w.WriteHeader(http.StatusOK)
+	})
+
+	r.Get("/projects/{projectId}/proposals", func(w http.ResponseWriter, r *http.Request) {
+		projectId := chi.URLParam(r, "projectId")
+
+		pid, _ := big.NewInt(0).SetString(projectId, 10)
+		project, err := dbConn.GetProject(context.TODO(), pid)
+		if err != nil {
+			if err == pgx.ErrNoRows {
+				http.Redirect(w, r, "/projects", http.StatusSeeOther)
+				return
+			}
+			log.Println("getting project data from the database:", err, pid)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		data := struct {
+			ProjectId string
+			ShortName string
+		}{
+			ProjectId: projectId,
+			ShortName: project.ShortName,
+		}
+
+		renderTemplate(w, "/project/{projectId}/apply", "project_proposals", data)
+	})
+
+	r.Get("/projects/{projectId}/proposals/list", func(w http.ResponseWriter, r *http.Request) {
+		projectId := chi.URLParam(r, "projectId")
+
+		pid, _ := big.NewInt(0).SetString(projectId, 10)
+		project, err := dbConn.GetProject(context.TODO(), pid)
+		if err != nil {
+			if err == pgx.ErrNoRows {
+				http.Redirect(w, r, "/projects", http.StatusSeeOther)
+				return
+			}
+			log.Println("getting project data from the database:", err, pid)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		signature := r.URL.Query().Get("signature")
+
+		verified, err := verifySignature(project.Owner, signature, "connect wallet")
+		if err != nil {
+			log.Println("invalid signatue")
+			http.Error(w, "Invalid signature", http.StatusBadRequest)
+			return
+		}
+		if !verified {
+			http.Error(w, "Cannot verify signature", http.StatusBadRequest)
+			return
+		}
+
+		proposals, err := dbConn.GetProposals(context.TODO(), pid)
+		if err != nil {
+			log.Println("loading proposals:", err, pid)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		if err := json.NewEncoder(w).Encode(proposals); err != nil {
+			log.Println("encoding proposals:", err, pid)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+	})
+
 }
 
 func RegisterTemplateRoute(r *chi.Mux, route string, name string) {

@@ -1,5 +1,5 @@
 {{define "content"}}
-<main class="narrow">
+<main class="project-view">
     {{if not .DataAvailable}}
     <h1>Project details</h1>
     <p>
@@ -11,14 +11,31 @@
         <strong>by {{.Owner}}</strong>
     </header>
 
-    <p>
-        {{.Description}}
-    </p>
+    <div class="description-wrapper">
+        <div class="description">
+            {{.Description}}
+        </div>
+        <aside class="team">
+            <h2>Team</h2>
+            <ul>
+                <li>
+                    {{.Owner}}<br>
+                    <small>Owner</small>
+                </li>
+                {{range $member := .Team}}
+                <li>{{$member}}</li>
+                {{end}}
+            </ul>
+            <a class="button" href="/projects/{{.ProjectId}}/apply" ref="nofollow">Apply to join</a>
+            <a href="/projects/{{.ProjectId}}/proposals" ref="nofollow">View proposals</a>
+        </aside>
+    </div>
 
     <tip-project class="project-tip" project-id="{{.ProjectId}}">
         <form>
             <input>
             <button class="primary">Tip</button>
+            <small>tip jar address: {{.TipJar}}</small>
         </form>
         <span class="success" data-success hidden>Tip sent, thank you!</span>
     </tip-project>

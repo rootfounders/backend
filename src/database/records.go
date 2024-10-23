@@ -158,10 +158,54 @@ func (c *Connection) GetComments(ctx context.Context, projectId *big.Int) (comme
 	return pgx.CollectRows[Comment](rows, pgx.RowToStructByName)
 }
 
+type ProposalRecord struct {
+	Id        int        `json:"id"`
+	ProjectId string     `json:"projectId"`
+	Address   string     `json:"address"`
+	Message   string     `json:"message"`
+	Created   *time.Time `json:"created"`
+}
+
+func (c *Connection) CreateProposal(ctx context.Context, proposal *ProposalRecord) (err error) {
+	_, err = c.conn.Exec(
+		ctx,
+		`INSERT INTO proposals(projectId, chain, address, message) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING`,
+		proposal.ProjectId,
+		c.Chain,
+		proposal.Address,
+		proposal.Message,
+	)
+
+	return
+}
+
+func (c *Connection) GetProposals(ctx context.Context, projectId *big.Int) (proposals []ProposalRecord, err error) {
+	rows, err := c.conn.Query(
+		ctx,
+		`SELECT id, projectId, address, message, created FROM proposals WHERE projectId = $1`,
+		projectId,
+	)
+	if err != nil {
+		return
+	}
+
+	return pgx.CollectRows[ProposalRecord](rows, pgx.RowToStructByName)
+}
+
+func (c *Connection) DeleteProposal(ctx context.Context, proposalId int) (err error) {
+	_, err = c.conn.Exec(
+		ctx,
+		`DELETE FROM proposals WHERE id = $1`,
+		proposalId,
+	)
+
+	return
+}
+
 func (c *Connection) CreateTeamMember(ctx context.Context, appliedEvent *rootFounders.RootFoundersApplied) (err error) {
 	_, err = c.conn.Exec(
 		ctx,
-		`INSERT INTO team_members(tx, projectId, chain, address, accepted) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING`,
+		`INSERT INTO team_members(tx, projectId, chain, address) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING`,
 		appliedEvent.Raw.TxHash.Hex(),
 		appliedEvent.ProjectId,
 		c.Chain,
@@ -191,4 +235,23 @@ func (c *Connection) MarkTeamMemberAsRemoved(ctx context.Context, projectId *big
 	)
 
 	return
+}
+
+func (c *Connection) GetTeam(ctx context.Context, projectId *big.Int) (addresses []string, err error) {
+	rows, err := c.conn.Query(
+		ctx,
+		`SELECT address FROM team_members WHERE accepted = TRUE AND projectId = $1`,
+		projectId,
+	)
+	if err != nil {
+		return
+	}
+
+	return pgx.AppendRows(addresses, rows, func(row pgx.CollectableRow) (string, error) {
+		var s string
+		if err := row.Scan(&s); err != nil {
+			return "", err
+		}
+		return s, nil
+	})
 }

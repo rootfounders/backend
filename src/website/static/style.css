@@ -68,7 +68,7 @@ form label > span:first-child {
     font-weight: bold;
 }
 
-form input {
+form input, form textarea {
     border: .1rem solid black;
     padding: var(--space-s) var(--space-m);
 }
@@ -82,7 +82,7 @@ form .buttons {
     align-self: flex-end;
 }
 
-button {
+button, .button {
     appearance: none;
     font-size: inherit;
     background: white;
@@ -91,12 +91,23 @@ button {
     cursor: pointer;
 }
 
+a.button {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
 button.primary {
     background: rgb(105, 196, 183);
 }
 
 button.no-border {
     border: none;
+}
+
+textarea {
+    font-family: inherit;
+    height: 30vh;
 }
 
 .site-header-wrapper {
@@ -172,9 +183,22 @@ button.no-border {
 
 /* project page styles */
 
+main.project-view {
+    width: 100ch;
+    margin: 0 auto;
+}
+
+main.project-view h1 {
+    margin-bottom: var(--space-s);
+}
+
 .project-tip form {
     display: flex;
     flex-direction: row;
+}
+
+.project-tip form small {
+    align-self: center;
 }
 
 #comments, #updates {
@@ -197,4 +221,41 @@ button.no-border {
 
 .project-updates time {
     font-size: small;
+}
+
+.description-wrapper {
+    display: flex;
+    margin-top: var(--space-m);
+}
+
+.description-wrapper h2 {
+    margin-top: 0;
+}
+
+.description-wrapper ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    list-style: none;
+    padding: 0;
+}
+
+.description-wrapper .description {
+    flex-grow: 1;
+}
+
+.description-wrapper aside {
+    font-size: 1.2rem;
+    padding: var(--space-s);
+    margin: var(--space-s);
+    background: silver;
+}
+
+.description-wrapper aside .button {
+    text-align: center;
+}
+
+#addComment textarea {
+    height: 10vh;
+    min-height: 6rem;
 }

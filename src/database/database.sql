@@ -29,6 +29,17 @@ CREATE TABLE IF NOT EXISTS comments (
 );
 CREATE INDEX IF NOT EXISTS comments_by_author ON comments (author);
 
+CREATE TABLE IF NOT EXISTS proposals (
+    id SERIAL PRIMARY KEY,
+    projectId BIGINT REFERENCES projects(id),
+    chain INT NOT NULL,
+    address VARCHAR(42) NOT NULL,
+    message VARCHAR(1000) NOT NULL,
+    created TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now()
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS proposals_unique ON proposals (projectId, address);
+
 CREATE TABLE IF NOT EXISTS team_members (
     tx TEXT PRIMARY KEY,
     projectId BIGINT REFERENCES projects(id),

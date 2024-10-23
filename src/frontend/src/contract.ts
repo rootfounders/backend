@@ -1,10 +1,15 @@
 import { createWalletClient, createPublicClient, http, custom, createTestClient, walletActions, publicActions, WalletClient, parseEventLogs, PublicClient, parseEther } from 'viem'
 import { viemChain } from './chain'
 import abi from './RootFounders.abi.json';
+import { loadOnboard } from './onboard';
 
 const mainContractAddress = process.env.MAIN_ADDRESS as `0x{string}`
 
 export async function initClients() {
+    const onboard = await loadOnboard();
+    const wallets = await onboard.connectWallet()
+    if (wallets.length === 0) throw new Error('cannot access wallets');
+
     let client: WalletClient;
     let publicClient;
     let address;
@@ -28,7 +33,11 @@ export async function initClients() {
         });
     }
 
-    [address] = await client.getAddresses()
+    // [address] = await client.getAddresses()
+    // [address] = await window.ethereum.request({
+    //     method: 'eth_requestAccounts'
+    // });
+    address = wallets[0].accounts[0].address;
     return { client, publicClient, address };
 }
 
@@ -131,13 +140,14 @@ export async function applyTo(projectId: string) {
     });
     const hash = await client.writeContract(request);
     const receipt = await publicClient.waitForTransactionReceipt({ hash })
-    if (receipt.status !== 'success') return false;
+    // if (receipt.status !== 'success') return false;
 
-    const [log] = parseEventLogs({
-        abi,
-        eventName: 'Applied',
-        logs: receipt.logs,
-    })
+    // const [log] = parseEventLogs({
+    //     abi,
+    //     eventName: 'Applied',
+    //     logs: receipt.logs,
+    // })
 
-    return Boolean(log);
+    // return Boolean(log);
+    return receipt.status === 'success';
 }

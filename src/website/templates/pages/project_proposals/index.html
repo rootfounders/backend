@@ -1,0 +1,30 @@
+{{define "content"}}
+<main class="narrow">
+    <h1>Proposals to join your team</h1>
+    <p>
+        Please write your application down below. Remember to <strong>include your contact details</strong>.
+    </p>
+
+    <proposal-list project-id="{{.ProjectId}}" class="proposal-list">
+        <template id="proposal">
+            <details name="proposals">
+                <summary>
+                    <span data-from></span>
+                    on
+                    <span data-when></span>
+                </summary>
+                <div data-content></div>
+
+                <!-- <div class="actions">
+                    <button class="primary" data-accept>Accept</button>
+                </div> -->
+            </details>
+        </template>
+
+        <span class="error" data-error hidden>Something went wrong</span>
+        <button class="primary" data-connect>Connect wallet</button>
+
+        <div id="proposals">No proposals yet.</div>
+    </proposal-list>
+</main>
+{{end}}

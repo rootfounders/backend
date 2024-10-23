@@ -1,0 +1,23 @@
+{{define "content"}}
+<main class="narrow">
+    <h1>Apply to join team</h1>
+    <p>
+        Please write your application down below. Remember to <strong>include your contact details</strong>.
+    </p>
+    <p>
+        After clicking <i>Send</i>, we will ask you to sign the form using your wallet - it's free and does not incur gas.
+        Then you will be asked to send a transaction that saves your application proof on chain. This one will incur gas.
+    </p>
+    <apply-form project-id="{{.ProjectId}}">
+        <span class="error" data-error hidden>Something went wrong</span>
+        <form>
+            <textarea name=""></textarea>
+            <button class="primary">Apply</button>
+        </form>
+        <div data-success hidden>
+            Thank you for applying to <i>{{.ShortName}}</i>. Your proposal has been sent.
+            <a href="/projects/{{.ProjectId}}">Go back to project page</a>
+        </div>
+    </apply-form>
+</main>
+{{end}}
