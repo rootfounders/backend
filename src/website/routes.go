@@ -135,6 +135,14 @@ func InitRoutes(r *chi.Mux) {
 		}
 		commentsJson, _ := json.Marshal(comments)
 
+		updates, err := dbConn.GetUpdates(context.TODO(), pid)
+		if err != nil {
+			log.Println("getting updates from the database:", err, pid)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+		updatesJson, _ := json.Marshal(updates)
+
 		data := struct {
 			ProjectId     string
 			DataAvailable bool
@@ -143,6 +151,7 @@ func InitRoutes(r *chi.Mux) {
 			Description   string
 			TipsTotal     *big.Int
 			Comments      string
+			Updates       string
 		}{
 			// TOOD
 			ProjectId:     projectId,
@@ -153,6 +162,7 @@ func InitRoutes(r *chi.Mux) {
 			Description: string(description),
 			TipsTotal:   tipsTotal,
 			Comments:    string(commentsJson),
+			Updates:     string(updatesJson),
 		}
 
 		renderTemplate(w, "/project/{projectId}", "project", data)

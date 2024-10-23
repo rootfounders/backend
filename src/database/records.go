@@ -3,6 +3,7 @@ package database
 import (
 	"context"
 	"math/big"
+	"time"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/jackc/pgx/v5"
@@ -89,6 +90,38 @@ func (c *Connection) FeaturedProject(ctx context.Context, count uint) (projects 
 	}
 
 	projects, err = pgx.CollectRows(rows, pgx.RowToStructByName[ProjectRecord])
+	return
+}
+
+type UpdateRecord struct {
+	Content string     `json:"content"`
+	Date    *time.Time `json:"date"`
+}
+
+func (c *Connection) GetUpdates(ctx context.Context, projectId *big.Int) (updates []UpdateRecord, err error) {
+	rows, err := c.conn.Query(
+		ctx,
+		`SELECT content, dbAdded as date FROM updates WHERE projectId = $1 ORDER BY date DESC LIMIT 10`,
+		projectId,
+	)
+	if err != nil {
+		return
+	}
+
+	return pgx.CollectRows[UpdateRecord](rows, pgx.RowToStructByName)
+}
+
+func (c *Connection) CreateUpdate(ctx context.Context, updateEvent *rootFounders.RootFoundersPostedUpdate) (err error) {
+	safeText := policy.Sanitize(updateEvent.Comment)
+	_, err = c.conn.Exec(
+		ctx,
+		`INSERT INTO updates(tx, projectId, chain, content) VALUES($1, $2, $3, $4) ON CONFLICT DO NOTHING`,
+		updateEvent.Raw.TxHash.Hex(),
+		updateEvent.ProjectId,
+		c.Chain,
+		safeText,
+	)
+
 	return
 }
 

@@ -95,6 +95,10 @@ button.primary {
     background: rgb(105, 196, 183);
 }
 
+button.no-border {
+    border: none;
+}
+
 .site-header-wrapper {
     border-bottom: .1rem solid rgb(189, 189, 189);
     margin-bottom: var(--space-section);
@@ -173,10 +177,24 @@ button.primary {
     flex-direction: row;
 }
 
-#comments {
+#comments, #updates {
     display: flex;
     flex-direction: column;
     gap: var(--space-l);
     list-style: none;
     padding: 0;
+}
+
+.project-updates {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-updates #showForm {
+    align-self: flex-end;
+    font-size: small;
+}
+
+.project-updates time {
+    font-size: small;
 }

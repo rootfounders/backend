@@ -11,6 +11,13 @@ CREATE TABLE IF NOT EXISTS projects (
 );
 CREATE INDEX IF NOT EXISTS projects_by_owner ON projects (owner);
 
+CREATE TABLE IF NOT EXISTS updates (
+    tx TEXT PRIMARY KEY,
+    projectId BIGINT REFERENCES projects(id),
+    chain INT NOT NULL,
+    content TEXT NOT NULL,
+    dbAdded TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now()
+);
 
 CREATE TABLE IF NOT EXISTS comments (
     tx TEXT PRIMARY KEY,

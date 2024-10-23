@@ -94,6 +94,13 @@ func main() {
 		return
 	}
 
+	updates := make(chan *rootFounders.RootFoundersPostedUpdate, 100)
+	updatePostedSub, err := mainContract.WatchPostedUpdate(opts, updates, nil)
+	if err != nil {
+		log.Println("updates sub:", err)
+		return
+	}
+
 	applications := make(chan *rootFounders.RootFoundersApplied, 100)
 	appliedSub, err := mainContract.WatchApplied(opts, applications, nil, nil)
 	if err != nil {
@@ -142,6 +149,17 @@ func main() {
 			}
 			if err := conn.SaveProgress(ctx, comment.Raw.BlockNumber); err != nil {
 				logDbError("progress", comment.Raw.BlockNumber, err)
+			}
+
+		case err := <-updatePostedSub.Err():
+			log.Fatalln("update posted subscription error", err)
+		case update := <-updates:
+			if err := conn.CreateUpdate(ctx, update); err != nil {
+				logDbError("comment", update, err)
+				return
+			}
+			if err := conn.SaveProgress(ctx, update.Raw.BlockNumber); err != nil {
+				logDbError("progress", update.Raw.BlockNumber, err)
 			}
 
 		case err := <-appliedSub.Err():

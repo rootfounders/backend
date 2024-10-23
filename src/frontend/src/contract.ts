@@ -98,6 +98,28 @@ export async function comment(projectId: string, value: string) {
     return Boolean(log);
 }
 
+export async function postUpdate(projectId: string, value: string) {
+    const { client, publicClient, address } = await initClients();
+    const { request } = await publicClient.simulateContract({
+        address: mainContractAddress,
+        account: address,
+        abi,
+        functionName: 'postUpdate',
+        args: [BigInt(projectId), value],
+    });
+    const hash = await client.writeContract(request);
+    const receipt = await publicClient.waitForTransactionReceipt({ hash })
+    if (receipt.status !== 'success') return false;
+
+    const [log] = parseEventLogs({
+        abi,
+        eventName: 'PostedUpdate',
+        logs: receipt.logs,
+    })
+
+    return Boolean(log);
+}
+
 export async function applyTo(projectId: string) {
     const { client, publicClient, address } = await initClients();
     const { request } = await publicClient.simulateContract({
