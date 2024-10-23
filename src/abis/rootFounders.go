@@ -41,7 +41,7 @@ type Project struct {
 
 // RootFoundersMetaData contains all meta data concerning the RootFounders contract.
 var RootFoundersMetaData = &bind.MetaData{
-	ABI: "[{\"type\":\"fallback\",\"stateMutability\":\"payable\"},{\"type\":\"receive\",\"stateMutability\":\"payable\"},{\"type\":\"function\",\"name\":\"addTeammate\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"internalType\":\"uint256\"},{\"name\":\"mate\",\"type\":\"address\",\"internalType\":\"address\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"applyTo\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"outputs\":[{\"name\":\"\",\"type\":\"bool\",\"internalType\":\"bool\"}],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"comment\",\"inputs\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"},{\"name\":\"content\",\"type\":\"string\",\"internalType\":\"string\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"createProject\",\"inputs\":[{\"name\":\"detailsLocationType\",\"type\":\"uint8\",\"internalType\":\"enumDetailsLocationType\"},{\"name\":\"detailsLocation\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"shortName\",\"type\":\"string\",\"internalType\":\"string\"}],\"outputs\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"getProject\",\"inputs\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"outputs\":[{\"name\":\"project\",\"type\":\"tuple\",\"internalType\":\"structProject\",\"components\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"},{\"name\":\"owner\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"detailsLocationType\",\"type\":\"uint8\",\"internalType\":\"enumDetailsLocationType\"},{\"name\":\"detailsLocation\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"shortName\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"tipJar\",\"type\":\"address\",\"internalType\":\"contractPaymentSplitter\"}]}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"owner\",\"inputs\":[],\"outputs\":[{\"name\":\"\",\"type\":\"address\",\"internalType\":\"address\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"removeTeammate\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"internalType\":\"uint256\"},{\"name\":\"mate\",\"type\":\"address\",\"internalType\":\"address\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"renounceOwnership\",\"inputs\":[],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"team\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"outputs\":[{\"name\":\"addresses\",\"type\":\"address[]\",\"internalType\":\"address[]\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"teammateRemoveSelf\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"transferOwnership\",\"inputs\":[{\"name\":\"newOwner\",\"type\":\"address\",\"internalType\":\"address\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"withdraw\",\"inputs\":[{\"name\":\"amount\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"event\",\"name\":\"Applied\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"indexed\":true,\"internalType\":\"uint256\"},{\"name\":\"who\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"Commented\",\"inputs\":[{\"name\":\"from\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"},{\"name\":\"projectId\",\"type\":\"uint256\",\"indexed\":true,\"internalType\":\"uint256\"},{\"name\":\"comment\",\"type\":\"string\",\"indexed\":false,\"internalType\":\"string\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"Fallback\",\"inputs\":[{\"name\":\"\",\"type\":\"address\",\"indexed\":false,\"internalType\":\"address\"},{\"name\":\"\",\"type\":\"uint256\",\"indexed\":false,\"internalType\":\"uint256\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"JoinedTeam\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"indexed\":true,\"internalType\":\"uint256\"},{\"name\":\"who\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"LeftTeam\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"indexed\":true,\"internalType\":\"uint256\"},{\"name\":\"who\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"OwnershipTransferred\",\"inputs\":[{\"name\":\"previousOwner\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"},{\"name\":\"newOwner\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"ProjectCreated\",\"inputs\":[{\"name\":\"id\",\"type\":\"uint256\",\"indexed\":true,\"internalType\":\"uint256\"},{\"name\":\"owner\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"},{\"name\":\"project\",\"type\":\"tuple\",\"indexed\":false,\"internalType\":\"structProject\",\"components\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"},{\"name\":\"owner\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"detailsLocationType\",\"type\":\"uint8\",\"internalType\":\"enumDetailsLocationType\"},{\"name\":\"detailsLocation\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"shortName\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"tipJar\",\"type\":\"address\",\"internalType\":\"contractPaymentSplitter\"}]}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"Received\",\"inputs\":[{\"name\":\"\",\"type\":\"address\",\"indexed\":false,\"internalType\":\"address\"},{\"name\":\"\",\"type\":\"uint256\",\"indexed\":false,\"internalType\":\"uint256\"}],\"anonymous\":false}]",
+	ABI: "[{\"type\":\"fallback\",\"stateMutability\":\"payable\"},{\"type\":\"receive\",\"stateMutability\":\"payable\"},{\"type\":\"function\",\"name\":\"addTeammate\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"internalType\":\"uint256\"},{\"name\":\"mate\",\"type\":\"address\",\"internalType\":\"address\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"applyTo\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"outputs\":[{\"name\":\"\",\"type\":\"bool\",\"internalType\":\"bool\"}],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"comment\",\"inputs\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"},{\"name\":\"content\",\"type\":\"string\",\"internalType\":\"string\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"createProject\",\"inputs\":[{\"name\":\"detailsLocationType\",\"type\":\"uint8\",\"internalType\":\"enumDetailsLocationType\"},{\"name\":\"detailsLocation\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"shortName\",\"type\":\"string\",\"internalType\":\"string\"}],\"outputs\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"getProject\",\"inputs\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"outputs\":[{\"name\":\"project\",\"type\":\"tuple\",\"internalType\":\"structProject\",\"components\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"},{\"name\":\"owner\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"detailsLocationType\",\"type\":\"uint8\",\"internalType\":\"enumDetailsLocationType\"},{\"name\":\"detailsLocation\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"shortName\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"tipJar\",\"type\":\"address\",\"internalType\":\"contractPaymentSplitter\"}]}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"getProjectTipJar\",\"inputs\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"outputs\":[{\"name\":\"tipJar\",\"type\":\"address\",\"internalType\":\"address\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"owner\",\"inputs\":[],\"outputs\":[{\"name\":\"\",\"type\":\"address\",\"internalType\":\"address\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"postUpdate\",\"inputs\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"},{\"name\":\"content\",\"type\":\"string\",\"internalType\":\"string\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"removeTeammate\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"internalType\":\"uint256\"},{\"name\":\"mate\",\"type\":\"address\",\"internalType\":\"address\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"renounceOwnership\",\"inputs\":[],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"team\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"outputs\":[{\"name\":\"addresses\",\"type\":\"address[]\",\"internalType\":\"address[]\"}],\"stateMutability\":\"view\"},{\"type\":\"function\",\"name\":\"teammateRemoveSelf\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"transferOwnership\",\"inputs\":[{\"name\":\"newOwner\",\"type\":\"address\",\"internalType\":\"address\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"function\",\"name\":\"withdraw\",\"inputs\":[{\"name\":\"amount\",\"type\":\"uint256\",\"internalType\":\"uint256\"}],\"outputs\":[],\"stateMutability\":\"nonpayable\"},{\"type\":\"event\",\"name\":\"Applied\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"indexed\":true,\"internalType\":\"uint256\"},{\"name\":\"who\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"Commented\",\"inputs\":[{\"name\":\"from\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"},{\"name\":\"projectId\",\"type\":\"uint256\",\"indexed\":true,\"internalType\":\"uint256\"},{\"name\":\"comment\",\"type\":\"string\",\"indexed\":false,\"internalType\":\"string\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"Fallback\",\"inputs\":[{\"name\":\"\",\"type\":\"address\",\"indexed\":false,\"internalType\":\"address\"},{\"name\":\"\",\"type\":\"uint256\",\"indexed\":false,\"internalType\":\"uint256\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"JoinedTeam\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"indexed\":true,\"internalType\":\"uint256\"},{\"name\":\"who\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"LeftTeam\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"indexed\":true,\"internalType\":\"uint256\"},{\"name\":\"who\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"OwnershipTransferred\",\"inputs\":[{\"name\":\"previousOwner\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"},{\"name\":\"newOwner\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"PostedUpdate\",\"inputs\":[{\"name\":\"projectId\",\"type\":\"uint256\",\"indexed\":true,\"internalType\":\"uint256\"},{\"name\":\"comment\",\"type\":\"string\",\"indexed\":false,\"internalType\":\"string\"}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"ProjectCreated\",\"inputs\":[{\"name\":\"id\",\"type\":\"uint256\",\"indexed\":true,\"internalType\":\"uint256\"},{\"name\":\"owner\",\"type\":\"address\",\"indexed\":true,\"internalType\":\"address\"},{\"name\":\"project\",\"type\":\"tuple\",\"indexed\":false,\"internalType\":\"structProject\",\"components\":[{\"name\":\"id\",\"type\":\"uint256\",\"internalType\":\"uint256\"},{\"name\":\"owner\",\"type\":\"address\",\"internalType\":\"address\"},{\"name\":\"detailsLocationType\",\"type\":\"uint8\",\"internalType\":\"enumDetailsLocationType\"},{\"name\":\"detailsLocation\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"shortName\",\"type\":\"string\",\"internalType\":\"string\"},{\"name\":\"tipJar\",\"type\":\"address\",\"internalType\":\"contractPaymentSplitter\"}]}],\"anonymous\":false},{\"type\":\"event\",\"name\":\"Received\",\"inputs\":[{\"name\":\"\",\"type\":\"address\",\"indexed\":false,\"internalType\":\"address\"},{\"name\":\"\",\"type\":\"uint256\",\"indexed\":false,\"internalType\":\"uint256\"}],\"anonymous\":false}]",
 }
 
 // RootFoundersABI is the input ABI used to generate the binding from.
@@ -221,6 +221,37 @@ func (_RootFounders *RootFoundersCallerSession) GetProject(id *big.Int) (Project
 	return _RootFounders.Contract.GetProject(&_RootFounders.CallOpts, id)
 }
 
+// GetProjectTipJar is a free data retrieval call binding the contract method 0xdb40b4cc.
+//
+// Solidity: function getProjectTipJar(uint256 id) view returns(address tipJar)
+func (_RootFounders *RootFoundersCaller) GetProjectTipJar(opts *bind.CallOpts, id *big.Int) (common.Address, error) {
+	var out []interface{}
+	err := _RootFounders.contract.Call(opts, &out, "getProjectTipJar", id)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// GetProjectTipJar is a free data retrieval call binding the contract method 0xdb40b4cc.
+//
+// Solidity: function getProjectTipJar(uint256 id) view returns(address tipJar)
+func (_RootFounders *RootFoundersSession) GetProjectTipJar(id *big.Int) (common.Address, error) {
+	return _RootFounders.Contract.GetProjectTipJar(&_RootFounders.CallOpts, id)
+}
+
+// GetProjectTipJar is a free data retrieval call binding the contract method 0xdb40b4cc.
+//
+// Solidity: function getProjectTipJar(uint256 id) view returns(address tipJar)
+func (_RootFounders *RootFoundersCallerSession) GetProjectTipJar(id *big.Int) (common.Address, error) {
+	return _RootFounders.Contract.GetProjectTipJar(&_RootFounders.CallOpts, id)
+}
+
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
 // Solidity: function owner() view returns(address)
@@ -365,6 +396,27 @@ func (_RootFounders *RootFoundersSession) CreateProject(detailsLocationType uint
 // Solidity: function createProject(uint8 detailsLocationType, string detailsLocation, string shortName) returns(uint256 id)
 func (_RootFounders *RootFoundersTransactorSession) CreateProject(detailsLocationType uint8, detailsLocation string, shortName string) (*types.Transaction, error) {
 	return _RootFounders.Contract.CreateProject(&_RootFounders.TransactOpts, detailsLocationType, detailsLocation, shortName)
+}
+
+// PostUpdate is a paid mutator transaction binding the contract method 0x5ab3e105.
+//
+// Solidity: function postUpdate(uint256 id, string content) returns()
+func (_RootFounders *RootFoundersTransactor) PostUpdate(opts *bind.TransactOpts, id *big.Int, content string) (*types.Transaction, error) {
+	return _RootFounders.contract.Transact(opts, "postUpdate", id, content)
+}
+
+// PostUpdate is a paid mutator transaction binding the contract method 0x5ab3e105.
+//
+// Solidity: function postUpdate(uint256 id, string content) returns()
+func (_RootFounders *RootFoundersSession) PostUpdate(id *big.Int, content string) (*types.Transaction, error) {
+	return _RootFounders.Contract.PostUpdate(&_RootFounders.TransactOpts, id, content)
+}
+
+// PostUpdate is a paid mutator transaction binding the contract method 0x5ab3e105.
+//
+// Solidity: function postUpdate(uint256 id, string content) returns()
+func (_RootFounders *RootFoundersTransactorSession) PostUpdate(id *big.Int, content string) (*types.Transaction, error) {
+	return _RootFounders.Contract.PostUpdate(&_RootFounders.TransactOpts, id, content)
 }
 
 // RemoveTeammate is a paid mutator transaction binding the contract method 0x839f76d9.
@@ -1409,6 +1461,151 @@ func (_RootFounders *RootFoundersFilterer) WatchOwnershipTransferred(opts *bind.
 func (_RootFounders *RootFoundersFilterer) ParseOwnershipTransferred(log types.Log) (*RootFoundersOwnershipTransferred, error) {
 	event := new(RootFoundersOwnershipTransferred)
 	if err := _RootFounders.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// RootFoundersPostedUpdateIterator is returned from FilterPostedUpdate and is used to iterate over the raw logs and unpacked data for PostedUpdate events raised by the RootFounders contract.
+type RootFoundersPostedUpdateIterator struct {
+	Event *RootFoundersPostedUpdate // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *RootFoundersPostedUpdateIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(RootFoundersPostedUpdate)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(RootFoundersPostedUpdate)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *RootFoundersPostedUpdateIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *RootFoundersPostedUpdateIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// RootFoundersPostedUpdate represents a PostedUpdate event raised by the RootFounders contract.
+type RootFoundersPostedUpdate struct {
+	ProjectId *big.Int
+	Comment   string
+	Raw       types.Log // Blockchain specific contextual infos
+}
+
+// FilterPostedUpdate is a free log retrieval operation binding the contract event 0x5074507377d61ac8f6d9cdd2ddd3c092b5e545c02d53fd69513fbc6786e6dcd5.
+//
+// Solidity: event PostedUpdate(uint256 indexed projectId, string comment)
+func (_RootFounders *RootFoundersFilterer) FilterPostedUpdate(opts *bind.FilterOpts, projectId []*big.Int) (*RootFoundersPostedUpdateIterator, error) {
+
+	var projectIdRule []interface{}
+	for _, projectIdItem := range projectId {
+		projectIdRule = append(projectIdRule, projectIdItem)
+	}
+
+	logs, sub, err := _RootFounders.contract.FilterLogs(opts, "PostedUpdate", projectIdRule)
+	if err != nil {
+		return nil, err
+	}
+	return &RootFoundersPostedUpdateIterator{contract: _RootFounders.contract, event: "PostedUpdate", logs: logs, sub: sub}, nil
+}
+
+// WatchPostedUpdate is a free log subscription operation binding the contract event 0x5074507377d61ac8f6d9cdd2ddd3c092b5e545c02d53fd69513fbc6786e6dcd5.
+//
+// Solidity: event PostedUpdate(uint256 indexed projectId, string comment)
+func (_RootFounders *RootFoundersFilterer) WatchPostedUpdate(opts *bind.WatchOpts, sink chan<- *RootFoundersPostedUpdate, projectId []*big.Int) (event.Subscription, error) {
+
+	var projectIdRule []interface{}
+	for _, projectIdItem := range projectId {
+		projectIdRule = append(projectIdRule, projectIdItem)
+	}
+
+	logs, sub, err := _RootFounders.contract.WatchLogs(opts, "PostedUpdate", projectIdRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(RootFoundersPostedUpdate)
+				if err := _RootFounders.contract.UnpackLog(event, "PostedUpdate", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParsePostedUpdate is a log parse operation binding the contract event 0x5074507377d61ac8f6d9cdd2ddd3c092b5e545c02d53fd69513fbc6786e6dcd5.
+//
+// Solidity: event PostedUpdate(uint256 indexed projectId, string comment)
+func (_RootFounders *RootFoundersFilterer) ParsePostedUpdate(log types.Log) (*RootFoundersPostedUpdate, error) {
+	event := new(RootFoundersPostedUpdate)
+	if err := _RootFounders.contract.UnpackLog(event, "PostedUpdate", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
