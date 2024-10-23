@@ -11,6 +11,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/jackc/pgx/v5"
+	"github.com/microcosm-cc/bluemonday"
 )
 
 type ProjectForm struct {
@@ -19,6 +20,8 @@ type ProjectForm struct {
 	Description     string
 	DetailsLocation string
 }
+
+var policy = bluemonday.StrictPolicy()
 
 func NewProjectForm(values *url.Values) *ProjectForm {
 	return &ProjectForm{
@@ -74,7 +77,7 @@ func InitRoutes(r *chi.Mux) {
 		}
 
 		var details bytes.Buffer
-		if _, err := details.WriteString(form.Description); err != nil {
+		if _, err := details.WriteString(policy.Sanitize(form.Description)); err != nil {
 			log.Println(err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			return
