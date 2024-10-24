@@ -79,6 +79,19 @@ func (c *Connection) GetProject(ctx context.Context, projectId *big.Int) (projec
 	return
 }
 
+func (c *Connection) ListProjects(ctx context.Context) (projects []ProjectRecord, err error) {
+	rows, err := c.conn.Query(
+		ctx,
+		`SELECT id::text, owner, detailsLocationType, detailsLocation, shortName, tipJarAddress as tipJar FROM projects ORDER BY dbAdded DESC LIMIT 1000`,
+	)
+	if err != nil {
+		return
+	}
+
+	projects, err = pgx.CollectRows(rows, pgx.RowToStructByName[ProjectRecord])
+	return
+}
+
 func (c *Connection) FeaturedProject(ctx context.Context, count uint) (projects []ProjectRecord, err error) {
 	rows, err := c.conn.Query(
 		ctx,

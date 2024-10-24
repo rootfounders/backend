@@ -1,0 +1,12 @@
+{{define "content"}}
+<main class="narrow projects">
+    <h1>Ideas</h1>
+
+    {{range $project := .}}
+    <div class="project">
+        <a href="/projects/{{$project.Id}}">{{.ShortName}}</a>
+    </div>
+    {{end}}
+
+</main>
+{{end}}

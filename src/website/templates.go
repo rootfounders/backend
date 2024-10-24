@@ -19,7 +19,7 @@ func GetTemplate(name string) (templ *template.Template, err error) {
 		return
 	}
 
-	templ, err = template.ParseFS(templateFs, "templates/layout.html", fmt.Sprintf("templates/pages/%s/index.html", name))
+	templ, err = template.ParseFS(templateFs, "templates/layout.html", fmt.Sprintf("templates/pages/%s/*.html", name))
 	cacheMutex.Lock()
 	templateCache[name] = templ
 	cacheMutex.Unlock()

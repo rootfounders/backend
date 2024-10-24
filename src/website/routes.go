@@ -57,6 +57,21 @@ func InitRoutes(r *chi.Mux) {
 	RegisterTemplateRoute(r, "/", "main")
 	RegisterTemplateRoute(r, "/projects/new", "projects_new")
 
+	r.Get("/projects", func(w http.ResponseWriter, r *http.Request) {
+		projects, err := dbConn.ListProjects(context.TODO())
+		if err != nil {
+			if err == pgx.ErrNoRows {
+				http.Redirect(w, r, "/", http.StatusSeeOther)
+				return
+			}
+			log.Println("listing projects:", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+
+		renderTemplate(w, "/projects", "projects", projects)
+	})
+
 	r.Post("/projects/new", func(w http.ResponseWriter, r *http.Request) {
 		if err := r.ParseForm(); err != nil {
 			log.Println("/projects/draft form parse error:", err)
