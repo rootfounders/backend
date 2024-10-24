@@ -6,6 +6,7 @@ COPY --exclude=node_modules --exclude=static/js/* --exclude=src/contracts . .
 
 RUN apt-get update -y && apt install -y nodejs npm
 RUN npm install --global yarn
+RUN mkdir src/website/static/js
 
 WORKDIR src/frontend
 RUN yarn && yarn build-and-copy
