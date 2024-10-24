@@ -1,0 +1,13 @@
+ipfsnode = "http://localhost:5001"
+rpc = "ws://localhost:8545"
+maincontract = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+
+[website]
+listenurl = ":3333"
+
+[database]
+host = "localhost"
+port = 5432
+user = "postgres"
+password = "test"
+database = "rootfounders"

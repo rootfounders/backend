@@ -1,0 +1,57 @@
+services:
+  ipfs:
+    image: ipfs/kubo:latest
+    healthcheck:
+      test: [ "CMD-SHELL", "" ]
+    ports:
+      - 5001:5001
+
+  postgres:
+    image: postgres:latest
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+    environment:
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: rootfounders
+    ports:
+      - 5432:5432
+    volumes:
+        - ./src/database/database.sql:/docker-entrypoint-initdb.d/init.sql
+
+  worker:
+    build:
+      context: .
+    healthcheck:
+      test: pgrep go
+    deploy:
+      restart_policy:
+          condition: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    entrypoint: "go run /app/src/worker --config /app/rootfounders.toml"
+    volumes:
+      - type: bind
+        source: ./rootfounders.toml
+        target: /app/rootfounders.toml
+
+  web:
+    build:
+      context: .
+    deploy:
+      restart_policy:
+          condition: always
+    depends_on:
+      worker:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      ipfs:
+        condition: service_healthy
+    entrypoint: "bash -c 'cd /app/src/website && go run . --config /app/rootfounders.toml'"
+    ports:
+      - 3333:3333
+    volumes:
+      - type: bind
+        source: ./rootfounders.toml
+        target: /app/rootfounders.toml
