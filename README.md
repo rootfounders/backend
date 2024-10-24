@@ -9,6 +9,14 @@ RootFounders is a decentralized and permission-less protocol that makes it easy 
 
 *Build in public* every idea owner can post updates.
 
+🔥🔥🔥__TEST IT__🔥🔥🔥
+
+PoC is deployed to Arbitrum Sepolia. You can access the UI at https://rootfounders.makingprogress.dev (this is early work, so please be gentle...)
+
+The contract is deployed at 0x07A8752DdE20d772033ff71e1306102431C449AC.
+
+Have a look at [RootFounders project being hosted on RootFounders itself](https://rootfounders.makingprogress.dev/projects/0) 😀
+
 ### Features
 **Tip**: send a tip to a project you like. Smart contract supports both Ether and ERC-20, the UI (frontend) only Ether for the time being. This functionality is implemented using OpenZeppelin's PaymentSplitter (i.e. each project has its own address for tipping).
 
@@ -22,39 +30,27 @@ From the technical perspective, we designed RootFounders so that anyone could bu
 Users own their data (project descriptions, comments) and can perform actions even without the offical UI. This makes RootFounders truly decentralized protocol.
 
 ### Installation
-You'll need to run local IPFS node, Anvil local chain and Postgres.
+Docker Compose setup will run everything for you but the node. You can use a public RPC provider or, to test locally, Anvil (part of Foundry).
 
-Deploy the contract:
+First, copy the example config (it has settings prepared for Anvil):
+```bash
+cp rootfounders.example.toml rootfounders.toml
+```
+
+Deploy the contract to Anil:
 ```shell
 cd contracts && forge script script/main.s.sol:RootFoundersScript --fork-url http://localhost:8545 --broadcast
 ```
 
-Create `rootfounders.toml` file that looks like this:
-```toml
-ipfsnode = "http://localhost:5001"
-rpc = "ws://localhost:8545"
-maincontract = "CONTRACT_ADDRESS"
+Now copy contract address and paste it to `rootfounders.toml` and also `src/frontend/.env` (there's also `.env.example` to get you started).
 
-[website]
-listenurl = ":3333"
-
-[database]
-host = "localhost"
-port = 5432
-user = "postgres"
-password = "test"
-database = "rootfounders"
-```
-
-Start worker:
+Run docker:
 ```shell
-cd worker && go run . --config path/to/rootfounders.toml
+docker compose up
 ```
 
-Start website:
-```shell
-cd website && go run . --config path/to/rootfounders.toml
-```
+It will take a while before everything is built and containers start. When you see `web: Listening on :3333` then your local instance is ready to handle requests.
+By default, the frontend runs at `http://localhost:3333`.
 
 ### Usage
 After following all steps described in "Installation", go to `http://localhost:3333` to access the UI.
