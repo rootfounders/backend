@@ -57,7 +57,7 @@ export class ProjectUpdates extends HTMLElement {
 
         await onboard.setChain({ chainId: chainIdHex });
         const { address } = await initClients();
-        if (address != this.ownerAddress) {
+        if (address.toLowerCase() != this.ownerAddress.toLowerCase()) {
             console.error('Only project owner can post updates');
             return;
         }

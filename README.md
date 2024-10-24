@@ -3,9 +3,11 @@
 ### Description
 RootFounders is a decentralized and permission-less protocol that makes it easy to find a cofounder for your project while validating the idea at the same time.
 
-**Find a cofounder:** Building alone is not fun, but finding a cofounder is hard. Instead of searching among random people at conferences or trying to get out of your X/Farcaster bubble, describe your idea on the platform, together with a link to a landing page, source code or MVP. Users can then apply to become a cofounder and your friends can endorse you to boost your legitimacy.
+*Find a cofounder:* Building alone is not fun, but finding a cofounder is hard. Instead of searching among random people at conferences or trying to get out of your X/Farcaster bubble, describe your idea on the platform, together with a link to a landing page, source code or MVP. Users can then apply to become a cofounder and your friends can endorse you to boost your legitimacy.
 
-**Validating ideas:** every user can tip an already posted idea and add comments. This way founder gets first market signals and the project gets visibility (not to mention some extra money 😉).
+*Validate ideas:* every user can tip an already posted idea and add comments. This way founder gets first market signals and the project gets visibility (not to mention some extra money 😉).
+
+*Build in public* every idea owner can post updates.
 
 ### Features
 **Tip**: send a tip to a project you like. Smart contract supports both Ether and ERC-20, the UI (frontend) only Ether for the time being. This functionality is implemented using OpenZeppelin's PaymentSplitter (i.e. each project has its own address for tipping).
