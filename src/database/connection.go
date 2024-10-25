@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 type Connection struct {
@@ -14,7 +15,7 @@ type Connection struct {
 	Password  string
 	Database  string
 	Chain     uint
-	conn      *pgx.Conn
+	conn      *pgxpool.Pool
 	batchSize int
 }
 
@@ -23,19 +24,19 @@ func (c *Connection) Connect(ctx context.Context) (err error) {
 		return err
 	}
 
-	c.conn, err = pgx.Connect(ctx, c.dsn())
+	c.conn, err = pgxpool.New(ctx, c.dsn())
 	if err != nil {
 		return fmt.Errorf("connection.Connect: %w", err)
 	}
 	return
 }
 
-func (c *Connection) Close(ctx context.Context) error {
-	return c.conn.Close(ctx)
-}
-
-func (c *Connection) Conn() *pgx.Conn {
-	return c.conn
+func (c *Connection) Conn(ctx context.Context) (*pgx.Conn, error) {
+	poolConn, err := c.conn.Acquire(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return poolConn.Conn(), nil
 }
 
 func (c *Connection) String() string {

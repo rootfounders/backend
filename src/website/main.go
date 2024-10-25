@@ -27,7 +27,6 @@ func main() {
 	}
 	ctx := context.Background()
 	initDatabase(ctx, cnf)
-	defer dbConn.Conn().Close(ctx)
 
 	url := cnf.Website.ListenUrl
 	if url == "" {

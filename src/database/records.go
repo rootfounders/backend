@@ -2,6 +2,7 @@ package database
 
 import (
 	"context"
+	"log"
 	"math/big"
 	"time"
 
@@ -80,6 +81,7 @@ func (c *Connection) GetProject(ctx context.Context, projectId *big.Int) (projec
 }
 
 func (c *Connection) ListProjects(ctx context.Context) (projects []ProjectRecord, err error) {
+	log.Println("db connections:", c.conn.Stat().TotalConns(), c.conn.Stat().IdleConns())
 	rows, err := c.conn.Query(
 		ctx,
 		`SELECT id::text, owner, detailsLocationType, detailsLocation, shortName, tipJarAddress as tipJar FROM projects ORDER BY dbAdded DESC LIMIT 1000`,

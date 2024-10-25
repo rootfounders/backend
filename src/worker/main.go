@@ -59,7 +59,6 @@ func main() {
 		log.Println("db connect err:", err)
 		return
 	}
-	defer conn.Conn().Close(ctx)
 
 	log.Println("watching contract at", config.MainContract)
 
