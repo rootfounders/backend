@@ -17,6 +17,7 @@ services:
       - 5432:5432
     volumes:
         - ./src/database/database.sql:/docker-entrypoint-initdb.d/init.sql
+        - postgres:/var/lib/postgresql/data
 
   worker:
     build:
@@ -55,3 +56,6 @@ services:
       - type: bind
         source: ./rootfounders.toml
         target: /app/rootfounders.toml
+
+volumes:
+  postgres:
